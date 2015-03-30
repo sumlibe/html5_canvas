@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>Doodle</title>
+  <style>
+    #mycanvas {
+      border: 10px solid #999;
+    }
+  </style>
+</head>
+<body>
+  <canvas width="400" height="200" id="mycanvas">
+    Canvasに対応したブラウザを用意してください。
+  </canvas>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+  <script>
+    $(function(){
+      var canvas = document.getElementById('mycanvas');
+      if (!canvas || !canvas.getContext) return false;
+      var ctx = canvas.getContext('2d');
+
+      var startX = 0,
+          startY = 0,
+          x = 0,
+          y = 0,
+          borderWidth = 10;
+
+      $('mycanvas').mousedown(function(e) {
+        startX = e.pageX - $(this).offset().left - borderWidth;
+        startY = e.pageY - $(this).offset().top - borderWidth;
+      })
+      .mousemove(function(e) {
+        x = e.pageX - $(this).offset().left - borderWidth;
+        y = e.pageY - $(this).offset().top - borderWidth;
+        ctx.beginPath();
+        ctx.moveTo(startX, startY);
+        ctx.lineTo(x, y);
+        ctx.stroke();
+        startX = x;
+        startY = y;
+      });
+    });
+  </script>
+</body>
+</html>
